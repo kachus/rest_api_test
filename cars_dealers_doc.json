@@ -1,0 +1,162 @@
+
+host: http://127.0.0.1:5000/
+
+/cars  
+GET
+возвращает список машин, которые есть в наличии (AMOUNT в таблице CARS > 0)
+
+GET http://127.0.0.1:5000/cars
+
+[
+    [
+        "Kia_Rio"
+    ],
+    [
+        "Ford Focus"
+    ],
+    [
+        "Toyota Corolla"
+    ],
+    [
+        "Kia Rio"
+    ],
+    [
+        "Nissan Almera "
+    ]
+]
+
+
+
+/cars/<id>
+id - id машины 
+GET 
+возврашает параметры машины по ее id
+если id не существует - 404
+
+1) GET http://127.0.0.1:5000/cars/768
+
+[
+    [
+        768,
+        "Toyota Corolla",
+        750000.0,
+        2,
+        "dealer3"
+    ]
+]
+
+2) GET http://127.0.0.1:5000/cars/768
+'no such car' , 404
+
+
+/cars/<id>/checkout
+id - id машины 
+POST
+required args: user_name, second_name 
+создает заказ в таблице ORDERS, присваивает уникальный id (ORDER_ID), 
+уменьшает количество машин в таблице CARS на 1, 201 - ОК
+если машины нет в наличии (или несуществующий id), возвращает код ошибки 404
+
+1) POST http://127.0.0.1:5000/cars/768/checkout
+BODY:
+user_name    Evgeniya
+second_name  Kachusova
+
+response: 'order was created'
+(order_id : e456f17e-c96f-11ec-9f1f-600308aa8020, запись с order_id была добавлена в таблицу ORDERS)
+
+2) POST  http://127.0.0.1:5000/cars/1/checkout
+"This car is not available for purchase"
+(машины с таким id не существует/нет в наличии)
+
+
+
+/dealers
+GET 
+возвращает список диллеров
+request:
+GET http://127.0.0.1:5000/dealers
+response: [
+    [
+        "dealer1"
+    ],
+    [
+        "dealer2"
+    ],
+    [
+        "dealer3"
+    ]
+]
+
+
+
+
+/dealers/<dealer>
+dealer - имя диллера 
+GET 
+возвращает информацию о диллере 
+если диллера не существует - возвращает 404
+
+1) GET http://127.0.0.1:5000/dealers/dealer1
+
+[
+    [
+        "dealer1",
+        "dealer1 info"
+    ]
+]
+2) GET http://127.0.0.1:5000/dealers/dealer5
+"no such dealer"
+
+
+/orders
+GET
+возвращает список заказов и их детали 
+если заказов нет, возвращает 'you have no orders'
+
+1) GET http://127.0.0.1:5000/orders
+
+[
+    [
+        "a5742e72-c663-11ec-af6d-600308aa8020",
+        "Zhenya",
+        "Kach",
+        978
+    ],
+    [
+        "cb23e234-c663-11ec-83bb-600308aa8020",
+        "Misha",
+        "Voronin",
+        568
+    ]
+]
+
+/orders/<order_id>
+order_id - уникальный id заказа (ORDER ID в таблице ORDERS)
+GET
+возвращает детали заказа по id
+если заказа с таким id нет, возвращает 404
+1)
+GET http://127.0.0.1:5000/orders/a5742e72-c663-11ec-af6d-600308aa8020
+
+[
+    [
+        "a5742e72-c663-11ec-af6d-600308aa8020",
+        "Zhenya",
+        "Kach",
+        978
+    ]
+]
+2) GET  http://127.0.0.1:5000/orders/1
+"no such order"
+
+
+DELETE
+удаляет заказ с данным id заказа
+(подразумевается, что невозможно удалить несуществующий заказ, поэтому ошибка здесь не предусматривается)
+
+DELETE http://127.0.0.1:5000/orders/0a825596-c669-11ec-b6ca-600308aa8020
+204 (ОК)
+
+
+

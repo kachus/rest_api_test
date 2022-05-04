@@ -115,19 +115,3 @@ def delete_order(order_id):
     cursor.execute(sql.format(car_id = car_id))
     conn.commit()
     cursor.close()
-'''''
-orders = [{'user_name': 'Zhenya', 'user_secondname':'Kach', 'car_id':678}]
-
-dealers =[ {'dealer_name': 'dealer1', 'dealer_info' : 'dealer1 info'},{'dealer_name': 'dealer2', 'dealer_info' : 'dealer2 info'}, {'dealer_name': 'dealer3', 'dealer_info' : 'dealer3 info'}]
-
-cars = [{'car_id':678, 'car_name':'Kia_Rio', 'price' : 700000, 'amount' : 9, 'dealer' : 'dealer1'},
-
-        {'car_id':978,'car_name':'Ford Focus', 'price' : 800000, 'amount' : 5, 'dealer' : 'dealer2'},
-        {'car_id':768,'car_name':'Toyota Corolla', 'price' : 750000, 'amount' : 2, 'dealer' : 'dealer3'},
-        {'car_id': 568,'car_name':'Honda Civik', 'price' : 890000, 'amount' : 0, 'dealer' : 'dealer1'},
-        {'car_id': 858,'car_name':'Kia Rio', 'price' : 900000, 'amount': 3, 'dealer' : 'dealer1'},
-        {'car_id': 677,'car_name':'Nissan Almera ', 'price' : 750000, 'amount': 1, 'dealer' : 'dealer2'}
-        ]
-        
-'''''
-
